@@ -1,13 +1,32 @@
 spring:
   jpa:
+    defer-datasource-initialization: true
     show-sql: false
     open-in-view: false
+
+  hibernate:
+    ddl-auto: create
 
     properties:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 20
         jdbc.batch_size: 20
+
+  datasource:
+    # ImMemory
+    url: jdbc:h2:mem:restaurant-voting
+    # tcp: jdbc:h2:tcp://localhost:9092/mem:restaurant-voting
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
 
 logging:
   level:
@@ -18,3 +37,4 @@ logging:
     org.hibernate.orm.jdbc.bind: TRACE
     org.springframework.orm.jpa: DEBUG
     org.hibernate.engine.jdbc.spi.SqlExceptionHelper: DEBUG
+

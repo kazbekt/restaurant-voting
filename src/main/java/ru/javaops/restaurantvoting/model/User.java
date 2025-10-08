@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import ru.javaops.restaurantvoting.HasIdAndEmail;
 
 import java.util.*;
 
@@ -15,7 +16,7 @@ import java.util.*;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-public class User extends NamedEntity {
+public class User extends NamedEntity implements HasIdAndEmail {
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -47,7 +48,7 @@ public class User extends NamedEntity {
         this(null, name, email, password, true, new Date(), Arrays.asList(roles));
     }
 
-    public User(Integer id, String name, String email, String password,  boolean enabled, Date registered, Collection<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Collection<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
@@ -68,5 +69,4 @@ public class User extends NamedEntity {
     public String toString() {
         return "User:" + id + '[' + email + ']';
     }
-
 }
