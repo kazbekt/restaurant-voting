@@ -1,0 +1,20 @@
+spring:
+  jpa:
+    show-sql: false
+    open-in-view: false
+
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 20
+        jdbc.batch_size: 20
+
+logging:
+  level:
+    root: WARN
+    ru.javaops.restaurantvoting: DEBUG
+    org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.springframework.orm.jpa: DEBUG
+    org.hibernate.engine.jdbc.spi.SqlExceptionHelper: DEBUG
