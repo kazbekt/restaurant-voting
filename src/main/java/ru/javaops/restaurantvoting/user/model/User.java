@@ -9,6 +9,7 @@ import lombok.*;
 import ru.javaops.restaurantvoting.common.HasIdAndEmail;
 import ru.javaops.restaurantvoting.common.model.NamedEntity;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -35,7 +36,7 @@ public class User extends NamedEntity implements HasIdAndEmail {
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
     @NotNull
-    private Date registered = new Date();
+    private LocalDateTime registered = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role",
@@ -46,10 +47,10 @@ public class User extends NamedEntity implements HasIdAndEmail {
     private Set<Role> roles = EnumSet.noneOf(Role.class);
 
     public User(String name, String email, String password, Role... roles) {
-        this(null, name, email, password, true, new Date(), Arrays.asList(roles));
+        this(null, name, email, password, true, LocalDateTime.now(), Arrays.asList(roles));
     }
 
-    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Collection<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, LocalDateTime registered, Collection<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
