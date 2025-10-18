@@ -1,4 +1,4 @@
-package ru.javaops.restaurantvoting;
+package ru.javaops.restaurantvoting.common;
 
 import org.springframework.util.Assert;
 

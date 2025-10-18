@@ -1,4 +1,4 @@
-package ru.javaops.restaurantvoting.util;
+package ru.javaops.restaurantvoting.app.util;
 
 import lombok.experimental.UtilityClass;
 import org.hibernate.proxy.HibernateProxy;

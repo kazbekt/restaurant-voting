@@ -1,4 +1,4 @@
-package ru.javaops.restaurantvoting.model;
+package ru.javaops.restaurantvoting.user.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -6,7 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import ru.javaops.restaurantvoting.HasIdAndEmail;
+import ru.javaops.restaurantvoting.common.HasIdAndEmail;
+import ru.javaops.restaurantvoting.common.model.NamedEntity;
 
 import java.util.*;
 

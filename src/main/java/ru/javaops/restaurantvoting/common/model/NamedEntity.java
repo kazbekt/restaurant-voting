@@ -1,4 +1,4 @@
-package ru.javaops.restaurantvoting.model;
+package ru.javaops.restaurantvoting.common.model;
 
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;

@@ -1,10 +1,10 @@
-package ru.javaops.restaurantvoting.model;
+package ru.javaops.restaurantvoting.common.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ru.javaops.restaurantvoting.HasId;
+import ru.javaops.restaurantvoting.common.HasId;
 
-import static ru.javaops.restaurantvoting.util.HibernateProxyHelper.getClassWithoutInitializingProxy;
+import static ru.javaops.restaurantvoting.app.util.HibernateProxyHelper.getClassWithoutInitializingProxy;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)

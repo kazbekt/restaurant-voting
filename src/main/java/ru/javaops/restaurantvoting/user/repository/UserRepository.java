@@ -1,9 +1,9 @@
-package ru.javaops.restaurantvoting.repository;
+package ru.javaops.restaurantvoting.user.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
-import ru.javaops.restaurantvoting.BaseRepository;
-import ru.javaops.restaurantvoting.model.User;
+import ru.javaops.restaurantvoting.common.BaseRepository;
+import ru.javaops.restaurantvoting.user.model.User;
 
 import java.util.Optional;
 
