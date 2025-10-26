@@ -1,0 +1,138 @@
+### 1. Доступ без аутентификации (должна быть ошибка 401)
+GET http://localhost:8080/api/profile
+
+### 2. Получение данных текущего пользователя
+GET http://localhost:8080/api/profile
+Authorization: Basic user@yandex.ru password
+Accept: application/json
+
+### 3. Регистрация нового пользователя
+POST http://localhost:8080/api/profile
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Test User",
+  "email": "test@test.com",
+  "password": "testpass"
+}
+
+### 4. Получение данных нового пользователя
+GET http://localhost:8080/api/profile
+Authorization: Basic test@test.com testpass
+Accept: application/json
+
+### 5. Получение списка всех пользователей (админ)
+GET http://localhost:8080/api/admin/users
+Authorization: Basic admin@gmail.com admin
+Accept: application/json
+
+### 6. Поиск пользователя по email (админ)
+GET http://localhost:8080/api/admin/users/by-email?email=user@gmail.com
+Authorization: Basic admin@gmail.com admin
+Accept: application/json
+
+### 7. Получение Swagger UI
+GET http://localhost:8080/swagger-ui.html
+Authorization: Basic user@yandex.ru password
+
+### 8. Тест ошибки валидации (несовпадение ID)
+PUT http://localhost:8080/api/profile
+Content-Type: application/json
+Authorization: Basic user@yandex.ru password
+
+{
+  "id": 7,
+  "name": "New Name",
+  "email": "user@gmail.com",
+  "password": "password"
+}
+
+### 9. Корректное обновление данных пользователя
+PUT http://localhost:8080/api/profile
+Content-Type: application/json
+Authorization: Basic user@yandex.ru password
+
+{
+  "name": "User Name Updated",
+  "email": "user@gmail.com",
+  "password": "updatedpassword"
+}
+
+### 10. Удаление текущего пользователя
+DELETE http://localhost:8080/api/profile
+Authorization: Basic user@yandex.ru password
+
+### 11. Создание пользователя админом
+POST http://localhost:8080/api/admin/users
+Content-Type: application/json
+Authorization: Basic admin@gmail.com admin
+
+{
+  "name": "Admin Created User",
+  "email": "admincreated@test.com",
+  "password": "adminpass",
+  "roles": ["USER", "ADMIN"]
+}
+
+### 12. Получение пользователя по ID (админ)
+GET http://localhost:8080/api/admin/users/1
+Authorization: Basic admin@gmail.com admin
+Accept: application/json
+
+### 13. Обновление пользователя админом
+PUT http://localhost:8080/api/admin/users/1
+Content-Type: application/json
+Authorization: Basic admin@gmail.com admin
+
+{
+  "name": "Admin Updated Name",
+  "email": "user@gmail.com",
+  "password": "adminupdatedpass",
+  "roles": ["USER"]
+}
+
+### 14. Блокировка пользователя (админ)
+PATCH http://localhost:8080/api/admin/users/1?enabled=false
+Content-Type: application/json
+Authorization: Basic admin@gmail.com admin
+
+### 15. Удаление пользователя админом
+DELETE http://localhost:8080/api/admin/users/3
+Authorization: Basic admin@gmail.com admin
+
+### 16. Тест XSS защиты (должен вернуть ошибку)
+PUT http://localhost:8080/api/profile
+Content-Type: application/json
+Authorization: Basic user@yandex.ru password
+
+{
+  "name": "<script>alert('XSS')</script>",
+  "email": "user@gmail.com",
+  "password": "password"
+}
+
+### 17. Тест дублирования email при регистрации
+POST http://localhost:8080/api/profile
+Content-Type: application/json
+
+{
+  "name": "Duplicate User",
+  "email": "user@gmail.com",
+  "password": "password"
+}
+
+### 18. Тест невалидных данных
+POST http://localhost:8080/api/profile
+Content-Type: application/json
+
+{
+  "name": "A",
+  "email": "invalid-email",
+  "password": "123"
+}
+
+### 19. Доступ к админскому API обычным пользователем (должна быть ошибка 403)
+GET http://localhost:8080/api/admin/users
+Authorization: Basic user@yandex.ru password
+

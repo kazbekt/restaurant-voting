@@ -1,11 +1,11 @@
 spring:
   jpa:
     defer-datasource-initialization: true
-    show-sql: false
+    show-sql: true
     open-in-view: false
 
-  hibernate:
-    ddl-auto: create
+    hibernate:
+      ddl-auto: create
 
     properties:
       hibernate:
@@ -27,14 +27,27 @@ spring:
       path: /h2-console
       settings:
         web-allow-others: true
+  # Jackson Serialization Issue Resolver
+  jackson:
+    visibility:
+      field: any
+      getter: none
+      setter: none
+      is-getter: none
+
 
 logging:
   level:
     root: WARN
     ru.javaops.restaurantvoting: DEBUG
     org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.orm.jdbc.bind: TRACE
-    org.springframework.orm.jpa: DEBUG
-    org.hibernate.engine.jdbc.spi.SqlExceptionHelper: DEBUG
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.orm.jdbc.bind: TRACE
+#    org.springframework.orm.jpa: DEBUG
+#    org.hibernate.engine.jdbc.spi.SqlExceptionHelper: DEBUG
 
+server.servlet:
+  encoding:
+    charset: UTF-8 # Charset of HTTP requests and responses. Added to the "Content-Type" header if not set explicitly
+    enabled: true # Enable http encoding support
+    force: true

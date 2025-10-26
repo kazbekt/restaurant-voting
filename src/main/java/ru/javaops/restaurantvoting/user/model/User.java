@@ -43,11 +43,15 @@ public class User extends NamedEntity implements HasIdAndEmail {
             joinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role"}, name = "uk_user_role"))
     @Column(name = "role")
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles = EnumSet.noneOf(Role.class);
 
-    public User(String name, String email, String password, Role... roles) {
-        this(null, name, email, password, true, LocalDateTime.now(), Arrays.asList(roles));
+    public User(User u) {
+        this(u.id, u.name, u.email, u.password, u.enabled, u.registered, u.roles);
+    }
+
+    public User(Integer id, String name, String email, String password, Role... roles) {
+        this(id, name, email, password, true, LocalDateTime.now(), Arrays.asList(roles));
     }
 
     public User(Integer id, String name, String email, String password, boolean enabled, LocalDateTime registered, Collection<Role> roles) {

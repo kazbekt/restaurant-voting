@@ -10,6 +10,5 @@ import ru.javaops.restaurantvoting.common.model.NamedEntity;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Restaurant extends NamedEntity {
 }
