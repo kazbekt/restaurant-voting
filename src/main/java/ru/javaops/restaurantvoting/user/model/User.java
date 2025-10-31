@@ -1,10 +1,7 @@
 package ru.javaops.restaurantvoting.user.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import ru.javaops.restaurantvoting.common.HasIdAndEmail;
 import ru.javaops.restaurantvoting.common.model.NamedEntity;
@@ -48,6 +45,7 @@ public class User extends NamedEntity implements HasIdAndEmail {
 
     public User(User u) {
         this(u.id, u.name, u.email, u.password, u.enabled, u.registered, u.roles);
+//        this.votes = List.copyOf(u.votes);
     }
 
     public User(Integer id, String name, String email, String password, Role... roles) {

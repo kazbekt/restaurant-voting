@@ -2,23 +2,25 @@ package ru.javaops.restaurantvoting.common.util;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import org.joda.money.CurrencyUnit;
-import org.joda.money.Money;
 
+import javax.money.Monetary;
+import javax.money.MonetaryAmount;
 import java.math.BigDecimal;
 
 @Converter(autoApply = true)
-public class MoneyConverter implements AttributeConverter<Money, BigDecimal> {
-
-    private static final CurrencyUnit DEFAULT_CURRENCY = CurrencyUnit.of("RUB");
+public class MoneyConverter implements AttributeConverter<MonetaryAmount, BigDecimal> {
 
     @Override
-    public BigDecimal convertToDatabaseColumn(Money money) {
-        return money.getAmount();
+    public BigDecimal convertToDatabaseColumn(MonetaryAmount money) {
+        return money != null ? money.getNumber().numberValue(BigDecimal.class) : null;
     }
 
     @Override
-    public Money convertToEntityAttribute(BigDecimal amount) {
-        return Money.of(DEFAULT_CURRENCY, amount);
+    public MonetaryAmount convertToEntityAttribute(BigDecimal amount) {
+        return amount != null ?
+                Monetary.getDefaultAmountFactory()
+                        .setNumber(amount)
+                        .setCurrency("RUB")
+                        .create() : null;
     }
 }

@@ -46,17 +46,17 @@
             <artifactId>jackson-datatype-hibernate6</artifactId>
         </dependency>
 
+        <!-- Zalando для Java Money -->
+        <dependency>
+            <groupId>org.zalando</groupId>
+            <artifactId>jackson-datatype-money</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+
         <!-- Database -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-        </dependency>
-
-        <!-- Joda Money -->
-        <dependency>
-            <groupId>org.joda</groupId>
-            <artifactId>joda-money</artifactId>
-            <version>${joda-money.version}</version>
         </dependency>
 
         <!-- Lombok -->

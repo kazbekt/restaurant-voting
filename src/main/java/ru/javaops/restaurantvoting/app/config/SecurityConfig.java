@@ -52,6 +52,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.securityMatcher("/api/**").authorizeHttpRequests(authz ->
                         authz.requestMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
+                                .requestMatchers(HttpMethod.GET, "/api/restaurants/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/menus/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/profile").anonymous()
 //                                .requestMatchers("/", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                                .requestMatchers("/api/**").authenticated()

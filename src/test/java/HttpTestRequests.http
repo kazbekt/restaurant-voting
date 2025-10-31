@@ -1,12 +1,14 @@
-### 1. Доступ без аутентификации (должна быть ошибка 401)
+/// PROFILE CONTROLLER
+
+### Доступ без аутентификации (должна быть ошибка 401)
 GET http://localhost:8080/api/profile
 
-### 2. Получение данных текущего пользователя
+### Получение данных текущего пользователя
 GET http://localhost:8080/api/profile
 Authorization: Basic user@yandex.ru password
 Accept: application/json
 
-### 3. Регистрация нового пользователя
+### Регистрация нового пользователя
 POST http://localhost:8080/api/profile
 Content-Type: application/json
 Accept: application/json
@@ -17,38 +19,12 @@ Accept: application/json
   "password": "testpass"
 }
 
-### 4. Получение данных нового пользователя
+### Получение данных нового пользователя
 GET http://localhost:8080/api/profile
 Authorization: Basic test@test.com testpass
 Accept: application/json
 
-### 5. Получение списка всех пользователей (админ)
-GET http://localhost:8080/api/admin/users
-Authorization: Basic admin@gmail.com admin
-Accept: application/json
-
-### 6. Поиск пользователя по email (админ)
-GET http://localhost:8080/api/admin/users/by-email?email=user@gmail.com
-Authorization: Basic admin@gmail.com admin
-Accept: application/json
-
-### 7. Получение Swagger UI
-GET http://localhost:8080/swagger-ui.html
-Authorization: Basic user@yandex.ru password
-
-### 8. Тест ошибки валидации (несовпадение ID)
-PUT http://localhost:8080/api/profile
-Content-Type: application/json
-Authorization: Basic user@yandex.ru password
-
-{
-  "id": 7,
-  "name": "New Name",
-  "email": "user@gmail.com",
-  "password": "password"
-}
-
-### 9. Корректное обновление данных пользователя
+### Корректное обновление данных пользователя
 PUT http://localhost:8080/api/profile
 Content-Type: application/json
 Authorization: Basic user@yandex.ru password
@@ -59,11 +35,23 @@ Authorization: Basic user@yandex.ru password
   "password": "updatedpassword"
 }
 
-### 10. Удаление текущего пользователя
+### Удаление текущего пользователя
 DELETE http://localhost:8080/api/profile
 Authorization: Basic user@yandex.ru password
 
-### 11. Создание пользователя админом
+///ADMIN USER CONTROLLER
+
+### Получение списка всех пользователей (админ)
+GET http://localhost:8080/api/admin/users
+Authorization: Basic admin@gmail.com admin
+Accept: application/json
+
+### Поиск пользователя по email (админ)
+GET http://localhost:8080/api/admin/users/by-email?email=user@gmail.com
+Authorization: Basic admin@gmail.com admin
+Accept: application/json
+
+### Создание пользователя админом
 POST http://localhost:8080/api/admin/users
 Content-Type: application/json
 Authorization: Basic admin@gmail.com admin
@@ -75,12 +63,12 @@ Authorization: Basic admin@gmail.com admin
   "roles": ["USER", "ADMIN"]
 }
 
-### 12. Получение пользователя по ID (админ)
+### Получение пользователя по ID (админ)
 GET http://localhost:8080/api/admin/users/1
 Authorization: Basic admin@gmail.com admin
 Accept: application/json
 
-### 13. Обновление пользователя админом
+### Обновление пользователя админом
 PUT http://localhost:8080/api/admin/users/1
 Content-Type: application/json
 Authorization: Basic admin@gmail.com admin
@@ -92,16 +80,18 @@ Authorization: Basic admin@gmail.com admin
   "roles": ["USER"]
 }
 
-### 14. Блокировка пользователя (админ)
+### Блокировка пользователя (админ)
 PATCH http://localhost:8080/api/admin/users/1?enabled=false
 Content-Type: application/json
 Authorization: Basic admin@gmail.com admin
 
-### 15. Удаление пользователя админом
+### Удаление пользователя (админ)
 DELETE http://localhost:8080/api/admin/users/3
 Authorization: Basic admin@gmail.com admin
 
-### 16. Тест XSS защиты (должен вернуть ошибку)
+/// EXCEPTIONS
+
+### Тест XSS защиты (должен вернуть ошибку)
 PUT http://localhost:8080/api/profile
 Content-Type: application/json
 Authorization: Basic user@yandex.ru password
@@ -112,7 +102,7 @@ Authorization: Basic user@yandex.ru password
   "password": "password"
 }
 
-### 17. Тест дублирования email при регистрации
+### Тест дублирования email при регистрации
 POST http://localhost:8080/api/profile
 Content-Type: application/json
 
@@ -122,7 +112,7 @@ Content-Type: application/json
   "password": "password"
 }
 
-### 18. Тест невалидных данных
+### Тест невалидных данных
 POST http://localhost:8080/api/profile
 Content-Type: application/json
 
@@ -132,7 +122,260 @@ Content-Type: application/json
   "password": "123"
 }
 
-### 19. Доступ к админскому API обычным пользователем (должна быть ошибка 403)
+### Доступ к админскому API обычным пользователем (должна быть ошибка 403)
 GET http://localhost:8080/api/admin/users
 Authorization: Basic user@yandex.ru password
 
+
+/// RESTAURANT PUBLIC CONTROLLER
+
+### Получение ресторана по ID
+GET http://localhost:8080/api/restaurants/11
+
+### Получение ресторанов с меню на сегодня
+GET http://localhost:8080/api/restaurants/with-menus/today
+
+### Получение всех ресторанов
+GET http://localhost:8080/api/restaurants
+
+
+/// RESTAURANT ADMIN CONTROLLER
+
+### Удаление ресторана по ID
+DELETE http://localhost:8080/api/admin/restaurants/11
+Authorization: Basic admin@gmail.com admin
+
+### Создание ресторана
+POST http://localhost:8080/api/admin/restaurants
+Content-Type: application/json
+Authorization: Basic admin@gmail.com admin
+
+{
+  "name": "Новый ресторан"
+}
+
+### Обновление ресторана по ID
+PUT http://localhost:8080/api/admin/restaurants/10
+Content-Type: application/json
+Authorization: Basic admin@gmail.com admin
+
+{
+  "name": "Wishbar 2.0"
+}
+
+### Проверка обновленного ресторана
+GET http://localhost:8080/api/restaurants/10
+
+
+/// MEAL ADMIN CONTROLLER
+### Создание блюда
+POST http://localhost:8080/api/admin/meals
+Content-Type: application/json
+Authorization: Basic admin@gmail.com admin
+
+{
+  "name": "Чак-чак",
+  "price": {
+    "amount": 100.00,
+    "currency": "RUB"
+  }
+}
+
+### Получение блюда по ID
+GET http://localhost:8080/api/admin/meals/20
+Authorization: Basic admin@gmail.com admin
+
+### Обновление блюда по ID
+PUT http://localhost:8080/api/admin/meals/20
+Content-Type: application/json
+Authorization: Basic admin@gmail.com admin
+
+{
+  "name": "Подорожавший рис",
+  "price": {
+    "amount": 149.99,
+    "currency": "RUB"
+  }
+}
+
+### Удаление блюда по ID
+DELETE http://localhost:8080/api/admin/meals/1
+Authorization: Basic admin@gmail.com admin
+
+### Получение всех блюд
+GET http://localhost:8080/api/admin/meals
+Authorization: Basic admin@gmail.com admin
+
+/// MENU ADMIN CONTROLLER
+
+### Получение всех меню
+GET http://localhost:8080/api/admin/menus
+Authorization: Basic admin@gmail.com admin
+
+### Удаление меню
+DELETE http://localhost:8080/api/admin/menus/32
+Authorization: Basic admin@gmail.com admin
+
+###  Создание меню на будущую дату
+POST http://localhost:8080/api/admin/menus
+Content-Type: application/json
+Authorization: Basic admin@gmail.com admin
+
+{
+  "date": "2030-01-02",
+  "restaurant": {
+    "id": 10
+  },
+  "meals": [
+    {"id": 25},
+    {"id": 26},
+    {"id": 27}
+  ]
+}
+
+### Обновление меню на будущую дату
+PUT http://localhost:8080/api/admin/menus/34
+Content-Type: application/json
+Authorization: Basic admin@gmail.com admin
+
+{
+  "id": 34,
+  "date": "2030-01-01",
+  "restaurant": {
+    "id": 10
+  },
+  "meals": [
+    {"id": 22}
+  ]
+}
+
+###  Попытка создания второго меню на сегодня для ресторана
+POST http://localhost:8080/api/admin/menus
+Content-Type: application/json
+Authorization: Basic admin@gmail.com admin
+
+{
+  "date": "2025-10-31",
+  "restaurant": {
+    "id": 10
+  },
+  "meals": [
+    {"id": 23},
+    {"id": 24}
+  ]
+}
+
+### Обновление сегодняшнего меню ДО 11:00 (работает только если текущее время < 11:00)
+PUT http://localhost:8080/api/admin/menus/31
+Content-Type: application/json
+Authorization: Basic admin@gmail.com admin
+
+{
+  "id": 31,
+  "date": "2025-10-31",
+  "restaurant": {
+    "id": 11
+  },
+  "meals": [
+    {"id": 28}
+  ]
+}
+
+### Попытка создания меню на прошедшую дату
+POST http://localhost:8080/api/admin/menus
+Content-Type: application/json
+Authorization: Basic admin@gmail.com admin
+
+{
+  "date": "2020-01-01",
+  "restaurant": {
+    "id": 12
+  },
+  "meals": [
+    {"id": 20},
+    {"id": 21}
+  ]
+}
+
+###
+
+/// MENU PUBLIC CONTROLLER
+
+### Получение меню по ID
+GET http://localhost:8080/api/menus/31
+
+### Получение меню ресторана на заданную дату
+GET http://localhost:8080/api/menus/by-restaurant?restaurantId=10&date=2030-01-01
+
+### Получение меню ресторана на текущую дату
+GET http://localhost:8080/api/menus/by-restaurant?restaurantId=10
+
+### Получение меню несуществующего на дату
+GET http://localhost:8080/api/menus/by-restaurant?restaurantId=10&date=2030-01-02
+
+### Получение всех меню на текущую дату
+GET http://localhost:8080/api/menus
+
+### Получение всех меню на заданную дату
+GET http://localhost:8080/api/menus?date=2030-01-01
+
+### Получение всех меню на несуществующую дату
+GET http://localhost:8080/api/menus?date=2030-01-02
+
+/// VOTE PROFILE CONTROLLER
+
+### Голосование за ресторан (первый раз сегодня)
+POST http://localhost:8080/api/profile/votes?restaurantId=11
+Authorization: Basic user@yandex.ru password
+Accept: application/json
+
+###
+POST http://localhost:8080/api/profile/votes?restaurantId=10
+Authorization: Basic admin@gmail.com admin
+Accept: application/json
+
+###
+POST http://localhost:8080/api/profile/votes?restaurantId=10
+Authorization: Basic guest@gmail.com guest
+Accept: application/json
+
+### Удаление голоса пользователя за сегодня
+DELETE http://localhost:8080/api/profile/votes
+Authorization: Basic user@yandex.ru password
+
+### Получение сегодняшнего голоса пользователя
+GET http://localhost:8080/api/profile/votes/today
+Authorization: Basic user@yandex.ru password
+Accept: application/json
+
+### Попытка повторного голосования за другой ресторан (должна быть ошибка)
+POST http://localhost:8080/api/profile/votes?restaurantId=11
+Authorization: Basic user@yandex.ru password
+Accept: application/json
+
+### Изменение голоса (работает только до 11:00)
+PUT http://localhost:8080/api/profile/votes?restaurantId=12
+Authorization: Basic user@yandex.ru password
+Accept: application/json
+
+### Проверка обновленного голоса
+GET http://localhost:8080/api/profile/votes/today
+Authorization: Basic user@yandex.ru password
+Accept: application/json
+
+### Попытка голосования за несуществующий ресторан (должна быть ошибка 404)
+POST http://localhost:8080/api/profile/votes?restaurantId=999
+Authorization: Basic user@yandex.ru password
+Accept: application/json
+
+/// VOTE ADMIN CONTROLLER
+
+### Получение результатов голосования за сегодня
+GET http://localhost:8080/api/admin/votes/results/today
+Authorization: Basic admin@gmail.com admin
+Accept: application/json
+
+### Получение голосов пользователя по ID
+GET  http://localhost:8080/api/admin/votes/user/1
+Authorization: Basic admin@gmail.com admin
+Accept: application/json

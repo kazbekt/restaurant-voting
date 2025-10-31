@@ -1,13 +1,13 @@
-package ru.javaops.restaurantvoting.menu;
+package ru.javaops.restaurantvoting.menu.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
-import org.joda.money.Money;
 import ru.javaops.restaurantvoting.common.model.NamedEntity;
 import ru.javaops.restaurantvoting.common.util.MoneyConverter;
+
+import javax.money.MonetaryAmount;
 
 @Entity
 @Table(name = "meal")
@@ -21,11 +21,6 @@ public class Meal extends NamedEntity {
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     @Convert(converter = MoneyConverter.class)
     @NotNull
-    private Money price;
-
-    @Column(name = "description", nullable = false)
-    @NotBlank
-    @Size(min = 2, max = 120)
-    private String description;
+    @Positive(message = "Price must be positive")
+    private MonetaryAmount price;
 }
-
