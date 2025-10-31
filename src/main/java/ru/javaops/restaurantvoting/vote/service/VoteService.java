@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static ru.javaops.restaurantvoting.app.util.Util.UPDATE_AFTER_DEADLINE_MSG;
+import static ru.javaops.restaurantvoting.vote.VotesUtil.createTo;
 
 @Service
 @Transactional
@@ -93,8 +94,7 @@ public class VoteService {
 
     public List<VoteTo> findUserVotes(int userId) {
         return repository.findUserVotingHistory(userId).stream()
-                .map(vote -> new VoteTo(vote.getId(), vote.getRestaurant().getId(),
-                        vote.getRestaurant().getName(), vote.getTime()))
+                .map(vote -> new VoteTo(vote.getId(), vote.getRestaurant().getId(), vote.getDate(), vote.getTime()))
                 .collect(Collectors.toList());
     }
 
@@ -102,14 +102,5 @@ public class VoteService {
         LocalDate today = LocalDate.now();
         return repository.findByUserIdAndDate(userId, today)
                 .orElseThrow(() -> new NotFoundException(NO_VOTE_FOR_TODAY));
-    }
-
-    private VoteTo createTo(Vote vote) {
-        return new VoteTo(
-                vote.getId(),
-                vote.getRestaurant().getId(),
-                vote.getRestaurant().getName(),
-                vote.getTime()
-        );
     }
 }

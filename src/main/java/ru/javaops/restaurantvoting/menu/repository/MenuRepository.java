@@ -12,10 +12,20 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface MenuRepository extends BaseRepository<Menu> {
 
-    @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant JOIN FETCH m.meals WHERE m.id = :id")
+    @Query("""
+            SELECT m FROM Menu m 
+            LEFT JOIN FETCH m.restaurant 
+            LEFT JOIN FETCH m.meals 
+            WHERE m.id = :id
+            """)
     Optional<Menu> findByIdWithRestaurantAndMeals(int id);
 
-    @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant JOIN FETCH m.meals")
+    @Query("""
+            SELECT m FROM Menu m 
+            JOIN FETCH m.restaurant 
+            JOIN FETCH m.meals
+             ORDER BY m.date DESC, m.restaurant.name ASC
+            """)
     List<Menu> findAllWithRestaurantAndMeals();
 
     @Query("""

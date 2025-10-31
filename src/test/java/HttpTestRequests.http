@@ -47,7 +47,7 @@ Authorization: Basic admin@gmail.com admin
 Accept: application/json
 
 ### Поиск пользователя по email (админ)
-GET http://localhost:8080/api/admin/users/by-email?email=user@gmail.com
+GET http://localhost:8080/api/admin/users/by-email?email=user@yandex.ru
 Authorization: Basic admin@gmail.com admin
 Accept: application/json
 
@@ -122,7 +122,7 @@ Content-Type: application/json
   "password": "123"
 }
 
-### Доступ к админскому API обычным пользователем (должна быть ошибка 403)
+### Доступ к админскому API обычным пользователем (должна быть ошибка 401)
 GET http://localhost:8080/api/admin/users
 Authorization: Basic user@yandex.ru password
 
@@ -199,7 +199,7 @@ Authorization: Basic admin@gmail.com admin
 }
 
 ### Удаление блюда по ID
-DELETE http://localhost:8080/api/admin/meals/1
+DELETE http://localhost:8080/api/admin/meals/20
 Authorization: Basic admin@gmail.com admin
 
 ### Получение всех блюд
@@ -213,7 +213,7 @@ GET http://localhost:8080/api/admin/menus
 Authorization: Basic admin@gmail.com admin
 
 ### Удаление меню
-DELETE http://localhost:8080/api/admin/menus/32
+DELETE http://localhost:8080/api/admin/menus/34
 Authorization: Basic admin@gmail.com admin
 
 ###  Создание меню на будущую дату
@@ -324,7 +324,7 @@ GET http://localhost:8080/api/menus?date=2030-01-02
 
 /// VOTE PROFILE CONTROLLER
 
-### Голосование за ресторан (первый раз сегодня)
+### Голосование за ресторан
 POST http://localhost:8080/api/profile/votes?restaurantId=11
 Authorization: Basic user@yandex.ru password
 Accept: application/json

@@ -17,7 +17,6 @@ public interface RestaurantRepository extends BaseRepository<Restaurant> {
     @NonNull
     List<Restaurant> findAll();
 
-    @EntityGraph("Restaurant.withMenus")
     @NonNull
     Optional<Restaurant> findById(@NonNull Integer id);
 

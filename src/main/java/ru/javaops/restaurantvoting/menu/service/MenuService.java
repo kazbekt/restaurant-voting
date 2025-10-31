@@ -37,6 +37,7 @@ public class MenuService {
     public static final String NOT_FOUND_MENU_WITH_ID = "Not found menu with id ";
     public static final String MENU_NOT_FOUND_FOR_RESTAURANT_AND_DATE =
             "No menu found for restaurant id=%d for date %s";
+    public static final String NO_MENUS_IN_RESTAURANTS_FOR_DATE = "No menus in restaurants for date ";
 
     private final MenuRepository menuRepository;
     private final MealRepository mealRepository;
@@ -91,7 +92,7 @@ public class MenuService {
         log.info("Get menus from all restaurants for date {}", date);
         List<Menu> menus = menuRepository.findAllMenusWithMealsByDate(date);
         if (menus.isEmpty()) {
-            throw new NotFoundException("No menus in restaurants for date " + date);
+            throw new NotFoundException(NO_MENUS_IN_RESTAURANTS_FOR_DATE + date);
         } else {
             return MenusUtil.getTos(menus);
         }

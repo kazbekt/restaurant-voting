@@ -14,7 +14,6 @@ import javax.money.MonetaryAmount;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 
 public class Meal extends NamedEntity {
 
@@ -23,4 +22,9 @@ public class Meal extends NamedEntity {
     @NotNull
     @Positive(message = "Price must be positive")
     private MonetaryAmount price;
+
+    public Meal(Integer id, String name, MonetaryAmount price) {
+        super(id, name);
+        this.price = price;
+    }
 }

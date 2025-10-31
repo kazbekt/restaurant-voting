@@ -12,7 +12,7 @@ INSERT INTO RESTAURANT (NAME, ID)
 VALUES ('Wishbar', 10),
        ('Огонёк', 11),
        ('Swish Swish', 12),
-       ('Новый Ресторан', 13);
+       ('Ресторан без меню', 13);
 
 INSERT INTO MEAL (NAME, PRICE, ID)
 VALUES ('Рис отварной', 120.00, 20),
@@ -23,7 +23,8 @@ VALUES ('Рис отварной', 120.00, 20),
        ('Куриный суп', 280.00, 25),
        ('Стейк из лосося', 890.00, 26),
        ('Тирамису', 350.00, 27),
-       ('Чай зеленый', 150.00, 28);
+       ('Чай зеленый', 150.00, 28),
+       ('Старое блюдо', 190.00, 29);
 
 INSERT INTO MENU (DATE, RESTAURANT_ID, ID)
 VALUES (NOW(), 10, 30),
@@ -46,6 +47,9 @@ VALUES (20, 30),
        (28, 32),
        (28, 33),
        (20, 34);
+
+INSERT INTO VOTE (ID, RESTAURANT_ID, USER_ID, VOTE_DATE, VOTE_TIME)
+VALUES (40, 10, 1, NOW(), '10:30:00');
 
 CREATE INDEX IF NOT EXISTS idx_menu_meal_menu_id ON menu_meal (MENU_ID);
 CREATE INDEX IF NOT EXISTS idx_menu_restaurant_date ON menu (restaurant_id, date);

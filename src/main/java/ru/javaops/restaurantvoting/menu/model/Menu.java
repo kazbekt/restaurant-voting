@@ -42,4 +42,11 @@ public class Menu extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotEmpty(message = "Menu must contain at least one meal")
     private List<Meal> meals = new ArrayList<>();
+
+    public Menu(Integer id, LocalDate date, Restaurant restaurant, List<Meal> meals) {
+        this.id = id;
+        this.date = date;
+        this.restaurant = restaurant;
+        this.meals = meals;
+    }
 }

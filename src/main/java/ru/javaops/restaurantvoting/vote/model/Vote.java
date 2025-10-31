@@ -1,6 +1,5 @@
 package ru.javaops.restaurantvoting.vote.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -12,6 +11,7 @@ import ru.javaops.restaurantvoting.user.model.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "vote", uniqueConstraints = {
@@ -33,7 +33,6 @@ public class Vote extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
@@ -43,6 +42,20 @@ public class Vote extends BaseEntity {
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
+
+    @PrePersist
+    @PreUpdate
+    private void truncateTime() {
+            this.time = this.time.truncatedTo(ChronoUnit.SECONDS);
+        }
+
+    public Vote(Integer id, User user, Restaurant restaurant, LocalDate date, LocalTime time) {
+        super(id);
+        this.user = user;
+        this.restaurant = restaurant;
+        this.date = date;
+        this.time = time;
+    }
 
     @Override
     public String toString() {

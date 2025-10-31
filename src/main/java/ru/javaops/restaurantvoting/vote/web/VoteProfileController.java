@@ -32,13 +32,12 @@ public class VoteProfileController {
     }
 
     @PostMapping
-    public ResponseEntity<VoteTo> create(@AuthenticationPrincipal AuthUser authUser, @RequestParam int restaurantId) {
+    public ResponseEntity<Vote> create(@AuthenticationPrincipal AuthUser authUser, @RequestParam int restaurantId) {
         log.info("user {} voting for restaurant {}", authUser.id(), restaurantId);
         Vote vote = service.create(authUser.getUser(), restaurantId);
-        VoteTo voteTo = new VoteTo(vote.getId(), vote.getRestaurant().getId(), vote.getRestaurant().getName(), vote.getTime());
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL + "/today").build().toUri();
-        return ResponseEntity.created(uri).body(voteTo);
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL).build().toUri();
+        return ResponseEntity.created(uri).body(vote);
     }
 
     @PutMapping

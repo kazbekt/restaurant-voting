@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import ru.javaops.restaurantvoting.common.model.NamedEntity;
 import ru.javaops.restaurantvoting.menu.model.Menu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,4 +25,9 @@ public class Restaurant extends NamedEntity {
     @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Menu> menus;
+
+    public Restaurant(Integer id, String name) {
+        super(id, name);
+        this.menus = new ArrayList<>();
+    }
 }
