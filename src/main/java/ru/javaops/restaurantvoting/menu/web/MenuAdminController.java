@@ -3,6 +3,7 @@ package ru.javaops.restaurantvoting.menu.web;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,16 +34,21 @@ public class MenuAdminController {
     private final MenuService service;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @CacheEvict(value =
+            {"menus", "allMenus", "menusByDate", "menuByRestaurantAndDate", "restaurantsWithTodayMenu"}, allEntries = true)
     public ResponseEntity<Menu> createWithLocation(@Valid @RequestBody Menu menu) {
         log.info("create {}", menu);
         checkIsNew(menu);
         Menu created = service.create(menu);
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL + "/{id}").buildAndExpand(created.getId()).toUri();
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL + "/{id}")
+                .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CacheEvict(value =
+            {"menus", "allMenus", "menusByDate", "menuByRestaurantAndDate", "restaurantsWithTodayMenu"}, allEntries = true)
     public void update(@Valid @RequestBody Menu menu, @PathVariable int id) {
         log.info("update {} with id={}", menu, id);
         assureIdConsistent(menu, id);
@@ -53,6 +59,8 @@ public class MenuAdminController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CacheEvict(value =
+            {"menus", "allMenus", "menusByDate", "menuByRestaurantAndDate", "restaurantsWithTodayMenu"}, allEntries = true)
     public void delete(@PathVariable int id) {
         log.info("delete menu with id={}", id);
         service.delete(id);

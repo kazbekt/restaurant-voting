@@ -51,8 +51,8 @@ VALUES (20, 30),
 INSERT INTO VOTE (ID, RESTAURANT_ID, USER_ID, VOTE_DATE, VOTE_TIME)
 VALUES (40, 10, 1, NOW(), '10:30:00');
 
+CREATE INDEX IF NOT EXISTS idx_user_email ON users (email);
 CREATE INDEX IF NOT EXISTS idx_menu_meal_menu_id ON menu_meal (MENU_ID);
 CREATE INDEX IF NOT EXISTS idx_menu_restaurant_date ON menu (restaurant_id, date);
-CREATE INDEX IF NOT EXISTS idx_vote_date ON vote (vote_date);
 CREATE INDEX IF NOT EXISTS idx_vote_restaurant_date ON vote (restaurant_id, vote_date);
-CREATE INDEX IF NOT EXISTS idx_vote_date ON vote (vote_date);
+CREATE INDEX IF NOT EXISTS idx_vote_user_date ON vote (user_id, vote_date);

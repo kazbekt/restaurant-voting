@@ -47,7 +47,7 @@ Authorization: Basic admin@gmail.com admin
 Accept: application/json
 
 ### Поиск пользователя по email (админ)
-GET http://localhost:8080/api/admin/users/by-email?email=user@yandex.ru
+GET http://localhost:8080/api/admin/users/by-email?email=User@yandex.ru
 Authorization: Basic admin@gmail.com admin
 Accept: application/json
 

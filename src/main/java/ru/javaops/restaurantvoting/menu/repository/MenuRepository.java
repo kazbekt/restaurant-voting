@@ -1,5 +1,6 @@
 package ru.javaops.restaurantvoting.menu.repository;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javaops.restaurantvoting.common.BaseRepository;
@@ -18,6 +19,7 @@ public interface MenuRepository extends BaseRepository<Menu> {
             LEFT JOIN FETCH m.meals 
             WHERE m.id = :id
             """)
+    @Cacheable(value = "menus", key = "#id")
     Optional<Menu> findByIdWithRestaurantAndMeals(int id);
 
     @Query("""
@@ -26,6 +28,7 @@ public interface MenuRepository extends BaseRepository<Menu> {
             JOIN FETCH m.meals
              ORDER BY m.date DESC, m.restaurant.name ASC
             """)
+    @Cacheable(value = "allMenus")
     List<Menu> findAllWithRestaurantAndMeals();
 
     @Query("""
@@ -35,6 +38,7 @@ public interface MenuRepository extends BaseRepository<Menu> {
                 WHERE m.restaurant.id = :restaurantId 
                 AND m.date = :date
             """)
+    @Cacheable(value = "menuByRestaurantAndDate", key = "{#restaurantId, #date.toString()}")
     Optional<Menu> findMenuWithMealsByRestaurantIdAndDate(int restaurantId, LocalDate date);
 
 
@@ -44,6 +48,7 @@ public interface MenuRepository extends BaseRepository<Menu> {
                 JOIN FETCH m.meals 
                 WHERE m.date = :date
             """)
+    @Cacheable(value = "menusByDate", key = "#date.toString()")
     List<Menu> findAllMenusWithMealsByDate(LocalDate date);
 
     boolean existsByRestaurantIdAndDate(int restaurantId, LocalDate date);

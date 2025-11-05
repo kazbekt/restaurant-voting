@@ -5,6 +5,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import ru.javaops.restaurantvoting.common.validation.NoHtml;
 
 @MappedSuperclass
 @Getter
@@ -15,6 +16,7 @@ public abstract class NamedEntity extends BaseEntity {
     @NotBlank
     @Size(min = 2, max = 128)
     @Column(name = "name", nullable = false)
+    @NoHtml
     protected String name;
 
     protected NamedEntity(Integer id, String name) {
