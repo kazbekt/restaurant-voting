@@ -1,5 +1,6 @@
 package ru.javaops.restaurantvoting.vote.web;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,6 +17,7 @@ import java.util.Map;
 @RequestMapping(value = VoteAdminController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
+@Tag(name = "Vote Admin Controller")
 public class VoteAdminController {
 
     static final String REST_URL = "/api/admin/votes";
@@ -27,7 +29,7 @@ public class VoteAdminController {
         return service.getTodayVotingResults();
     }
 
-    @GetMapping("/results")
+    @GetMapping("/results/by-date")
     public Map<Integer, Long> getResultsByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return service.getVotingResultsByDate(date);
     }

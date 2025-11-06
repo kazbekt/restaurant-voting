@@ -14,7 +14,6 @@ import javax.money.MonetaryAmount;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-
 public class Meal extends NamedEntity {
 
     @Column(name = "price", nullable = false, precision = 10, scale = 2)

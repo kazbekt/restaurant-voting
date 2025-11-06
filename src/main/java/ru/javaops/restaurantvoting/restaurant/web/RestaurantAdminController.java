@@ -1,5 +1,7 @@
 package ru.javaops.restaurantvoting.restaurant.web;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +24,13 @@ import static ru.javaops.restaurantvoting.common.validation.ValidationUtil.check
 @RequestMapping(value = RestaurantAdminController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
+@Tag(name = "Restaurant Admin Controller")
 public class RestaurantAdminController extends AbstractRestaurantController {
 
     static final String REST_URL = "/api/admin/restaurants";
 
     @GetMapping("/{id}")
-    public RestaurantTo get(@PathVariable int id) {
+    public RestaurantTo get(@Parameter(example = "12") @PathVariable int id) {
         return super.get(id);
     }
 
@@ -44,7 +47,7 @@ public class RestaurantAdminController extends AbstractRestaurantController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(NO_CONTENT)
     @CacheEvict(value = {"restaurants", "restaurantsWithTodayMenu"}, allEntries = true)
-    public void update(@Valid @RequestBody Restaurant restaurant, @PathVariable int id) {
+    public void update(@Valid @RequestBody Restaurant restaurant, @Parameter(example = "12") @PathVariable int id) {
         log.info("update restaurant {}", restaurant);
         assureIdConsistent(restaurant, id);
         repository.save(restaurant);
@@ -53,12 +56,12 @@ public class RestaurantAdminController extends AbstractRestaurantController {
     @DeleteMapping("/{id}")
     @ResponseStatus(NO_CONTENT)
     @CacheEvict(value = {"restaurants", "restaurantsWithTodayMenu"}, allEntries = true)
-    public void delete(@PathVariable int id) {
+    public void delete(@Parameter(example = "13") @PathVariable int id) {
         log.info("delete {}", id);
         repository.deleteExisted(id);
     }
 
-    @GetMapping("/with-today-menu")
+    @GetMapping("/with-menus/today")
     public List<RestaurantTo> getAllWithTodayMenu() {
         return super.getAllWithTodayMenu();
     }

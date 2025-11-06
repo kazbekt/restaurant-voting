@@ -1,10 +1,11 @@
 package ru.javaops.restaurantvoting.common.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 import ru.javaops.restaurantvoting.common.HasId;
 
-import static ru.javaops.restaurantvoting.app.util.HibernateProxyHelper.getClassWithoutInitializingProxy;
+import static ru.javaops.restaurantvoting.common.util.HibernateProxyHelper.getClassWithoutInitializingProxy;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
@@ -16,6 +17,7 @@ public abstract class BaseEntity implements HasId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     protected Integer id;
 
     @Override

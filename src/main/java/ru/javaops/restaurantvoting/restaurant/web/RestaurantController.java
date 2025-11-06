@@ -1,5 +1,7 @@
 package ru.javaops.restaurantvoting.restaurant.web;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -12,11 +14,12 @@ import java.util.List;
 @RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
+@Tag(name = "Restaurant Controller")
 public class RestaurantController extends AbstractRestaurantController {
     static final String REST_URL = "/api/restaurants";
 
     @GetMapping("/{id}")
-    public RestaurantTo get(@PathVariable int id) {
+    public RestaurantTo get(@Parameter(example = "12") @PathVariable int id) {
         return super.get(id);
     }
 

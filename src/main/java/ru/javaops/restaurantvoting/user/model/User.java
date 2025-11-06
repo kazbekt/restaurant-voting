@@ -1,10 +1,12 @@
 package ru.javaops.restaurantvoting.user.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import ru.javaops.restaurantvoting.common.HasIdAndEmail;
 import ru.javaops.restaurantvoting.common.model.NamedEntity;
+import ru.javaops.restaurantvoting.common.validation.NoHtml;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -21,11 +23,13 @@ public class User extends NamedEntity implements HasIdAndEmail {
     @Email
     @NotBlank
     @Size(max = 64)
+    @NoHtml
     private String email;
 
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(max = 128)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
@@ -33,6 +37,7 @@ public class User extends NamedEntity implements HasIdAndEmail {
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime registered = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)

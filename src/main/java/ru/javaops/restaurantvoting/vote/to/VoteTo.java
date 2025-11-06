@@ -12,7 +12,9 @@ import java.time.LocalTime;
 @EqualsAndHashCode(callSuper = true)
 public class VoteTo extends BaseTo {
     Integer restaurantId;
+
     LocalDate voteDate;
+
     @JsonFormat(pattern = "HH:mm:ss")
     LocalTime voteTime;
 

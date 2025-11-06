@@ -1,5 +1,7 @@
 package ru.javaops.restaurantvoting.menu.web;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,7 @@ import static ru.javaops.restaurantvoting.common.validation.ValidationUtil.check
 @RequestMapping(value = MenuAdminController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
+@Tag(name = "Menu Admin Controller")
 public class MenuAdminController {
 
     static final String REST_URL = "/api/admin/menus";
@@ -49,7 +52,8 @@ public class MenuAdminController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @CacheEvict(value =
             {"menus", "allMenus", "menusByDate", "menuByRestaurantAndDate", "restaurantsWithTodayMenu"}, allEntries = true)
-    public void update(@Valid @RequestBody Menu menu, @PathVariable int id) {
+    public void update(
+            @Valid @RequestBody Menu menu, @Parameter(example = "32") @PathVariable int id) {
         log.info("update {} with id={}", menu, id);
         assureIdConsistent(menu, id);
         repository.getExisted(id);

@@ -1,5 +1,7 @@
 package ru.javaops.restaurantvoting.vote.web;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -20,6 +22,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @RequestMapping(value = VoteProfileController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
+@Tag(name = "Vote Profile Controller")
 public class VoteProfileController {
 
     static final String REST_URL = "/api/profile/votes";
@@ -32,7 +35,10 @@ public class VoteProfileController {
     }
 
     @PostMapping
-    public ResponseEntity<Vote> create(@AuthenticationPrincipal AuthUser authUser, @RequestParam int restaurantId) {
+    public ResponseEntity<Vote> create(
+            @AuthenticationPrincipal AuthUser authUser,
+            @Parameter(example = "10")
+            @RequestParam int restaurantId) {
         log.info("user {} voting for restaurant {}", authUser.id(), restaurantId);
         Vote vote = service.create(authUser.getUser(), restaurantId);
 
@@ -42,12 +48,15 @@ public class VoteProfileController {
 
     @PutMapping
     @ResponseStatus(NO_CONTENT)
-    public void update(@AuthenticationPrincipal AuthUser authUser, @RequestParam int restaurantId) {
+    public void update(
+            @AuthenticationPrincipal AuthUser authUser,
+            @Parameter(example = "12")
+            @RequestParam int restaurantId) {
         service.update(authUser.id(), restaurantId);
     }
 
     @DeleteMapping
-    public void deleteTodayVote(@AuthenticationPrincipal AuthUser authUser) {
+    public void deleteTodayVote(@Parameter(hidden = true) @AuthenticationPrincipal AuthUser authUser) {
         service.deleteTodayVote(authUser.id());
     }
 }

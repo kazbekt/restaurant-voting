@@ -1,5 +1,8 @@
 package ru.javaops.restaurantvoting.menu.web;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +28,7 @@ import static ru.javaops.restaurantvoting.menu.MenusUtil.createTo;
 @RequestMapping(value = MealAdminController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @AllArgsConstructor
+@Tag(name = "Meal Admin Controller")
 public class MealAdminController {
 
     static final String REST_URL = "/api/admin/meals";
@@ -33,7 +37,7 @@ public class MealAdminController {
     private final MealRepository repository;
 
     @GetMapping("/{id}")
-    public MealTo get(@PathVariable int id) {
+    public MealTo get( @Parameter(example = "20") @PathVariable int id) {
         return createTo(repository.getExisted(id));
     }
 
@@ -48,7 +52,7 @@ public class MealAdminController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Meal meal, @PathVariable int id) {
+    public void update(@Valid @RequestBody Meal meal, @Parameter(example = "20") @PathVariable int id) {
         log.info("update {} with id={}", meal, id);
         assureIdConsistent(meal, id);
         repository.getExisted(id);
@@ -56,9 +60,11 @@ public class MealAdminController {
         repository.save(meal);
     }
 
+    @Operation(
+            description = "Cannot delete meal that is used in today menus")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id) {
+    public void delete( @Parameter(example = "20 or 29") @PathVariable int id) {
         log.info("delete meal {}", id);
 
         if (repository.isMealUsedInMenus(id)) {

@@ -1,4 +1,4 @@
-package ru.javaops.restaurantvoting.app.util;
+package ru.javaops.restaurantvoting.common.util;
 
 import lombok.experimental.UtilityClass;
 

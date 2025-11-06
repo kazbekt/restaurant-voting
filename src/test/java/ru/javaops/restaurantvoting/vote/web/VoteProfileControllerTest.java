@@ -20,7 +20,7 @@ import java.time.temporal.ChronoUnit;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static ru.javaops.restaurantvoting.app.util.Util.UPDATE_AFTER_DEADLINE_MSG;
+import static ru.javaops.restaurantvoting.common.util.Util.UPDATE_AFTER_DEADLINE_MSG;
 import static ru.javaops.restaurantvoting.restaurant.RestaurantTestData.SWISH_SWISH_ID;
 import static ru.javaops.restaurantvoting.restaurant.RestaurantTestData.WISHBAR_ID;
 import static ru.javaops.restaurantvoting.user.UserTestData.ADMIN_MAIL;

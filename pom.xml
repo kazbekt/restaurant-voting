@@ -20,6 +20,8 @@
         <lombok.version>1.18.30</lombok.version>
         <logback.version>1.5.19</logback.version>
         <jsoup.version>1.21.2</jsoup.version>
+        <springdoc.version>2.8.6</springdoc.version>
+        <javamoney.version>1.3.0</javamoney.version>
     </properties>
 
     <dependencies>
@@ -57,11 +59,18 @@
             <artifactId>jackson-datatype-hibernate6</artifactId>
         </dependency>
 
+        <!-- SpringDoc OpenAPI (Swagger) -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.version}</version>
+        </dependency>
+
         <!-- Zalando для Java Money -->
         <dependency>
             <groupId>org.zalando</groupId>
             <artifactId>jackson-datatype-money</artifactId>
-            <version>1.3.0</version>
+            <version>${javamoney.version}</version>
         </dependency>
 
         <!-- NoHTML validation -->

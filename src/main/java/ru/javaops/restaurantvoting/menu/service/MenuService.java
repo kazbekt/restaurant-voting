@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.javaops.restaurantvoting.app.util.Util;
+import ru.javaops.restaurantvoting.common.util.Util;
 import ru.javaops.restaurantvoting.common.error.DataConflictException;
 import ru.javaops.restaurantvoting.common.error.NotFoundException;
 import ru.javaops.restaurantvoting.menu.MenusUtil;
@@ -22,7 +22,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ru.javaops.restaurantvoting.app.util.Util.UPDATE_AFTER_DEADLINE_MSG;
+import static ru.javaops.restaurantvoting.common.util.Util.UPDATE_AFTER_DEADLINE_MSG;
 
 @Service
 @Transactional

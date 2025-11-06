@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 import ru.javaops.restaurantvoting.common.HasIdAndEmail;
 import ru.javaops.restaurantvoting.common.to.NamedTo;
+import ru.javaops.restaurantvoting.common.validation.NoHtml;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
@@ -14,6 +15,7 @@ public class UserTo extends NamedTo implements HasIdAndEmail {
     @Email
     @NotBlank
     @Size(max = 64)
+    @NoHtml
     String email;
 
     @NotBlank
